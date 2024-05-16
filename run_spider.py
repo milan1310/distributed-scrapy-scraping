@@ -13,4 +13,4 @@ def create_spider_task(spider_name, start_url):
 
 # Example usage
 if __name__ == "__main__":
-    create_spider_task("amazonpdp", "B00J00X5YO")
+    create_spider_task("amazonpdp", "NumDVBSA")

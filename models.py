@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Enum
+from sqlalchemy import JSON, Column, Integer, String, Text, DateTime, ForeignKey, Enum
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 import enum
@@ -26,8 +26,16 @@ class SpiderTask(Base):
 class SpiderLog(Base):
     __tablename__ = 'spider_logs'
     
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     task_id = Column(Integer, ForeignKey('spider_tasks.id'), nullable=False)
     log_message = Column(Text, nullable=False)
-    timestamp = Column(DateTime, default=datetime.datetime.now())
+    total_urls_scraped = Column(Integer, nullable=True)
+    successful_requests = Column(Integer, nullable=True)
+    failed_requests = Column(Integer, nullable=True)
+    status_codes = Column(JSON, nullable=True)
+    start_time = Column(DateTime, nullable=True)
+    end_time = Column(DateTime, nullable=True)
+    duration = Column(Integer, nullable=True)  # Duration in seconds
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+    
     task = relationship("SpiderTask", back_populates="logs")

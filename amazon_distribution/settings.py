@@ -112,3 +112,15 @@ DEFAULT_REQUEST_HEADERS = {
 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
 'viewport-width': '843'
 }
+
+
+# Enables scheduling storing requests queue in redis.
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+
+# Ensure all spiders share same duplicates filter through redis.
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+
+# Redis Connection URL
+REDIS_URL = 'redis://:irro6HsquxkoE2S@localhost:6379/0'
+SCHEDULER_PERSIST = False 
+# CLOSESPIDER_TIMEOUT = 60
