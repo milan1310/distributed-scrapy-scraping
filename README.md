@@ -1,5 +1,3 @@
-Here's a comprehensive `README.md` file for your distributed scraping architecture repository:
-
 # Distributed Scraping Architecture
 
 Welcome to the Distributed Scraping Architecture project! This project leverages Scrapy, Celery, Redis, and scrapy-redis to create a scalable and robust web scraping framework.
