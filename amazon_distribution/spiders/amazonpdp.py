@@ -13,6 +13,7 @@ class Amazonpdp(RedisSpider):
     name = "amazonpdp"
     allowed_domains = ["amazon.com"]
     redis_key = 'asins_queue:start_urls'
+    redis_batch_size = 16
     max_idle_time = 10
 
     # def start_requests(self):
@@ -22,31 +23,12 @@ class Amazonpdp(RedisSpider):
     #         yield scrapy.Request(f"https://www.amazon.com/dp/{self.asin}/ref=cm_cr_arp_d_product_top?ie=UTF8&th=1")
 
     def parse(self, response):
-        item_obj = AmazonPDPItem()
-
-        title = response.css("#productTitle::text").get()
-        total_rating = response.css("#acrCustomerReviewText::text").get()
-        num_images = len(response.css('li.item span.a-button-text img::attr(src)').extract())
-        bulletings = response.css("#feature-bullets .a-list-item::text").getall()
-
-        brand_element = response.css(".po-brand .a-span9 > span::text")
-        brand = brand_element.get() if brand_element else "No brand mentioned"
-
-        variation_element = response.css("#twisterContainer")
-        is_variation = True if len(variation_element) > 0 else False
-
-        buy_box_winner = response.css(".tabular-buybox-text:nth-child(6) .a-spacing-none > span > a::text").get()
-        # price = str(response.css('.a-price .a-price-whole::text').get() + '.' + response.css('.a-price .a-price-fraction::text').get())
-
-        item_obj['title'] = title
-        item_obj['total_rating'] = total_rating
-        item_obj['bulletings'] = bulletings
-        item_obj['buy_box_winner'] = buy_box_winner
-        item_obj['num_images'] = num_images
-        item_obj['brand'] = brand
-        item_obj['is_variation'] = is_variation
-        item_obj['asin_number'] = self.asin
-        item_obj['product_url'] = f"https://www.amazon.com/dp/{self.asin}/?th=1"
-
-        yield item_obj
-        
+        # item_obj = AmazonPDPItem()
+        yield {
+            'product_url': response.url,
+            'product_name': response.css('#productTitle::text').get().strip(),
+            'price': response.css('.apexPriceToPay span::text').get(),
+            'shortdescription': response.css('#productFactsDesktopExpander li span::text').getall(),
+            'longdescription': response.css('#productDescription span::text').get(),
+            'aplus':response.css('#aplus h2::text').get()
+        }
