@@ -22,7 +22,8 @@ In today's data-driven world, efficiently gathering and processing large dataset
 - **scrapy-redis**: Integration to distribute Scrapy tasks across multiple nodes.
 
 ## Upcoming
-- [] 
+- [] Adding new way of executing scrapers using `subprocess`
+- [] Structured way to start distributed scraping for dummys
 
 ## Installation
 To get started, clone the repository and install the necessary dependencies:
