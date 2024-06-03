@@ -5,6 +5,7 @@ Welcome to the Distributed Scraping Architecture project! This project leverages
 ## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
+- [Upcoming](#upcoming)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
@@ -19,6 +20,9 @@ In today's data-driven world, efficiently gathering and processing large dataset
 - **Celery**: Asynchronous task queue/job queue for distributing scraping tasks.
 - **Redis**: In-memory data structure store used as a message broker.
 - **scrapy-redis**: Integration to distribute Scrapy tasks across multiple nodes.
+
+## Upcoming
+- [] 
 
 ## Installation
 To get started, clone the repository and install the necessary dependencies:
